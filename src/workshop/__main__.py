@@ -4,7 +4,7 @@ from .settings import settings
 
 
 uvicorn.run(
-    'workshop.app:app',
+    'workshop.routes.app:app',
     host=settings.server_host,
     port=settings.server_port,
     reload=True,
