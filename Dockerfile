@@ -1,7 +1,7 @@
 # Dockerfile
 
 # pull the official docker image
-FROM python
+FROM python:3.9
 
 WORKDIR /FastApi_basic_project
 
