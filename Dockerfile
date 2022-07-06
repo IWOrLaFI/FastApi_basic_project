@@ -1,12 +1,7 @@
-FROM ubuntu:latest
+# Dockerfile
 
-MAINTAINER WOrLaF
-
-LABEL version='1.0'
-
-RUN apt-get update
-RUN apt-get install -y python3
-
+# pull the official docker image
+FROM python
 
 WORKDIR /FastApi_basic_project
 
