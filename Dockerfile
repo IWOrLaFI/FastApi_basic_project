@@ -4,8 +4,8 @@ MAINTAINER WOrLaF
 
 LABEL version='1.0'
 
-RUN apt-get update\
-    apt-get install -y python3
+RUN apt-get update
+RUN apt-get install -y python3
 
 
 WORKDIR /FastApi_basic_project
