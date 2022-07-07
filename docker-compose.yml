@@ -1,29 +1,67 @@
 # docker-compose.yml
 
-version: '3.8'
+version: '3.3'
 
 services:
   app:
     build: .
-    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn workshop.app:app --host 0.0.0.0'
     volumes:
       - .:/workshop
     ports:
-      - 8008:8000
+      - 8000:8000
     environment:
       - DATABASE_URL=postgresql://fastapi_basic_project:fastapi_user@db:5432/fastapi_basic_project
     depends_on:
-      - db
-  db:
-    image: postgres:13
+      - postgres
+    networks:
+      - postgres
+      -
+#  db:
+#    image: postgres:13
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data/
+#    ports:
+#      - 5432
+#    environment:
+#      - POSTGRES_USER=fastapi_user
+#      - POSTGRES_PASSWORD=fastapi_password
+#      - POSTGRES_DB=fastapi_basic_project
+
+  postgres:
+    container_name: postgres_container
+    image: postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    expose:
-      - 5432
+       - postgres:/data/postgres
     environment:
-      - POSTGRES_USER=fastapi_user
-      - POSTGRES_PASSWORD=fastapi_password
-      - POSTGRES_DB=fastapi_basic_project
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      PGDATA: /data/postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
 
 volumes:
-  postgres_data:
+  postgres:
+  pgadmin:
+  workshop:
