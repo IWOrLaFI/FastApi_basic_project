@@ -18,6 +18,3 @@ def get_db():
     _db = databases.Database(SQLALCHEMY_DATABASE_URL)
     return _db
 
-
-
-
