@@ -1,2 +1,8 @@
-PROJECT_NAME = 'FastAPI'
-VERSION = '0.0'
+from pydantic import BaseSettings, Field
+
+
+class Settings(BaseSettings):
+    db_url: str = Field(..., env='DATABASE_URL')
+
+
+settings = Settings()
