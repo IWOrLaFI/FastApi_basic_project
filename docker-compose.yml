@@ -1,0 +1,41 @@
+# docker-compose.yml
+
+version: '3.3'
+
+services:
+  app:
+    build: .
+    volumes:
+      - .:/workshop
+    ports:
+      - 8000:8000
+    
+    depends_on:
+      - postgres
+    networks:
+      - postgres
+
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    volumes:
+       - postgres:/data/postgres
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'changeme'
+      POSTGRES_HOST: 'postgres'
+      PGDATA: /data/postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - postgres
+    restart: unless-stopped
+
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  workshop:
