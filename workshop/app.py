@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .routes import test_routes
+from .routes import test_routes, auth
 from workshop.config import PROJECT_NAME, VERSION
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -19,3 +19,4 @@ def get_application():
 app = get_application()
 
 app.include_router(test_routes.router)
+app.include_router(auth.router)
