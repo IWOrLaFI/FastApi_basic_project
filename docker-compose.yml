@@ -3,18 +3,18 @@
 version: '3.3'
 
 services:
-#  app:
-#    build: .
-#    volumes:
-#      - .:/workshop
-#    ports:
-#      - 8000:8000
-#    environment:
-#      - DATABASE_URL=postgresql://fastapi_basic_project:fastapi_user@db:5432/fastapi_basic_project
-#    depends_on:
-#      - postgres
-#    networks:
-#      - postgres
+  app:
+    build: .
+    volumes:
+      - .:/workshop
+    ports:
+      - 8000:8000
+    environment:
+      - DATABASE_URL=postgresql://fastapi_basic_project:fastapi_user@db:5432/fastapi_basic_project
+    depends_on:
+      - postgres
+    networks:
+      - postgres
 
   postgres:
     container_name: postgres_container
