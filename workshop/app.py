@@ -1,12 +1,16 @@
 from fastapi import FastAPI
 from .routes import test_routes
-from workshop.config import PROJECT_NAME, VERSION
+from config import (
+    PROJECT_NAME,
+    VERSION,
+)
 from fastapi.middleware.cors import CORSMiddleware
 from .db.database import get_db, Base, engine
 
 ORIGINS = ["http://localhost:8080", "http://127.0.0.1:8080"]
 
 Base.metadata.create_all(bind=engine)
+
 
 def get_application():
     _app = FastAPI(title=PROJECT_NAME, version=VERSION)
