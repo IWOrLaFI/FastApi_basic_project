@@ -17,6 +17,9 @@ class UserInfo(BaseModel):
     email: EmailStr
     password_hash: str
 
+    class Config:
+        orm_mode = True
+
 
 class SignIn(UserInfo):
     email: EmailStr
@@ -31,11 +34,3 @@ class SignUp(SignIn):
         if 'password' in values and v != values['password']:
             raise ValueError("password don't match")
         return v
-
-
-def add_db():
-    from workshop.db.database import engine
-    from workshop.tables import Base
-    return Base.metadata.create_all(engine)
-
-add_db()

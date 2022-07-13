@@ -30,7 +30,7 @@ class Result(Base):
     user_id = Column(Integer, ForeignKey('users.id'), index=True)
     date = Column(Date)
     result = Column(Integer)
-    answer = Column(String)
+    answer_list = Column(String)
     description = Column(String, nullable=True)
 
 

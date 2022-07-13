@@ -13,3 +13,6 @@ databases
 ormar
 asyncpg
 psycopg2-binary==2.8.6
+python-jose
+passlib[bcrypt]
+pydantic[email]
