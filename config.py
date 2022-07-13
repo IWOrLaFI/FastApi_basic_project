@@ -1,0 +1,3 @@
+# ./
+PROJECT_NAME = 'FastAPI'
+VERSION = '0.0'
