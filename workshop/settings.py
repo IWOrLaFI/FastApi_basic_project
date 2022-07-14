@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     server_port: int = 8000
     db_url: str = 'postgresql://postgres:changeme@postgress:5432'
 
-    jwt_secret: str
+    # jwt_secret: str
     jwt_algorithm: str = 'HS256'
     jwt_expires_s: int = 3600
 

@@ -10,6 +10,7 @@ from fastapi import (
     HTTPException,
     status,
 )
+
 from fastapi.security import OAuth2PasswordBearer
 from jose import (
     JWTError,
@@ -19,10 +20,9 @@ from passlib.hash import bcrypt
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
-from .. import (
-    models,
-    tables,
-)
+from .. import (tables)
+from workshop.models.user import (UserInfo, SignUp)
+from workshop.models.auth import (Token)
 from ..db.database import get_session
 from ..settings import settings
 
@@ -30,7 +30,7 @@ from ..settings import settings
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/auth/sign-in/')
 
 
-def get_current_user(token: str = Depends(oauth2_scheme)) -> models.User:
+def get_current_user(token: str = Depends(oauth2_scheme)) -> UserInfo:
     return AuthService.verify_token(token)
 
 
@@ -44,7 +44,7 @@ class AuthService:
         return bcrypt.hash(password)
 
     @classmethod
-    def verify_token(cls, token: str) -> models.User:
+    def verify_token(cls, token: str) -> UserInfo:
         exception = HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail='Could not validate credentials',
@@ -62,15 +62,15 @@ class AuthService:
         user_data = payload.get('user')
 
         try:
-            user = models.User.parse_obj(user_data)
+            user = UserInfo.parse_obj(user_data)
         except ValidationError:
             raise exception from None
 
         return user
 
     @classmethod
-    def create_token(cls, user: tables.User) -> models.Token:
-        user_data = models.User.from_orm(user)
+    def create_token(cls, user: tables.User) -> Token:
+        user_data = UserInfo.from_orm(user)
         now = datetime.utcnow()
         payload = {
             'iat': now,
@@ -84,15 +84,15 @@ class AuthService:
             settings.jwt_secret,
             algorithm=settings.jwt_algorithm,
         )
-        return models.Token(access_token=token)
+        return Token(access_token=token)
 
     def __init__(self, session: Session = Depends(get_session)):
         self.session = session
 
     def register_new_user(
         self,
-        user_data: models.UserCreate,
-    ) -> models.Token:
+        user_data: SignUp,
+    ) -> Token:
         user = tables.User(
             email=user_data.email,
             username=user_data.username,
@@ -106,7 +106,7 @@ class AuthService:
         self,
         username: str,
         password: str,
-    ) -> models.Token:
+    ) -> Token:
         exception = HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail='Incorrect username or password',
