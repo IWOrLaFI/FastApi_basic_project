@@ -1,8 +1,6 @@
 from fastapi import FastAPI
-from .routes import (
-    test_routes,
-    user
-)
+from .routes import auth
+
 from config import (
     PROJECT_NAME,
     VERSION,
@@ -29,7 +27,7 @@ def get_application():
 app = get_application()
 
 # app.include_router(test_routes.router)
-app.include_router(user.router)
+app.include_router(auth.router)
 
 db = get_db()
 
