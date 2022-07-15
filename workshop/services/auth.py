@@ -89,13 +89,13 @@ class AuthService:
     def __init__(self, session: Session = Depends(get_session)):
         self.session = session
 
-    def register_new_user(
-        self,
-        user_data: SignUp,
-    ) -> Token:
+    def register_new_user(self, user_data: SignUp) -> Token:
         user = tables.User(
             email=user_data.email,
-            username=user_data.username,
+            first_name=user_data.first_name,
+            last_name=user_data.last_name,
+            birthday=user_data.birthday,
+            phone_number=user_data.phone_number,
             password_hash=self.hash_password(user_data.password),
         )
         self.session.add(user)
@@ -104,7 +104,7 @@ class AuthService:
 
     def authenticate_user(
         self,
-        username: str,
+        email: str,
         password: str,
     ) -> Token:
         exception = HTTPException(
@@ -116,7 +116,7 @@ class AuthService:
         user = (
             self.session
             .query(tables.User)
-            .filter(tables.User.username == username)
+            .filter(tables.User.email == email)
             .first()
         )
 
