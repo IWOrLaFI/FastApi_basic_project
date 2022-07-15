@@ -49,4 +49,3 @@ def sign_in(
 )
 def get_user(user: User = Depends(get_current_user)):
     return user
-
