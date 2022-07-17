@@ -10,6 +10,7 @@ from ..services.auth import (
 
 from ..models.auth import (
     UserCreate,
+    BaseUser,
     User,
     Token,
 )

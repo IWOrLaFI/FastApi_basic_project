@@ -14,7 +14,7 @@ class UserInfo(BaseModel):
     last_name: str
     birthday: datetime.datetime
     phone_number: str
-    email: EmailStr
+    username: EmailStr
     password_hash: str
 
     class Config:
@@ -22,7 +22,7 @@ class UserInfo(BaseModel):
 
 
 class SignIn(UserInfo):
-    email: EmailStr
+    username: EmailStr
     password: constr(min_length=8)
 
 

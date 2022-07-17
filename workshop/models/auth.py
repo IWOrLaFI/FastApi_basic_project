@@ -9,8 +9,11 @@ class BaseUser(BaseModel):
     last_name: str
     birthday: datetime.datetime
     phone_number: str
-    email: EmailStr
+    username: EmailStr
     password_hash: str
+
+    class Config:
+        orm_mode = True
 
 
 class UserCreate(BaseUser):
@@ -19,9 +22,6 @@ class UserCreate(BaseUser):
 
 class User(BaseUser):
     id: int
-
-    class Config:
-        orm_mode = True
 
 
 class Token(BaseModel):

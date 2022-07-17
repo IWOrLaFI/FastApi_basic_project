@@ -5,11 +5,13 @@ version: '3.3'
 services:
   app:
     build: .
+    container_name:  fastapi
+    external_links:
+      -  postgres_container:postgres_container
     volumes:
       - .:/workshop
     ports:
       - 8000:8000
-    
     depends_on:
       - postgres
     networks:
@@ -19,6 +21,7 @@ services:
     container_name: postgres_container
     image: postgres
     volumes:
+       - ../2. Init Database:/docker-entrypoint-initdb.d
        - postgres:/data/postgres
     environment:
       POSTGRES_USER: 'postgres'

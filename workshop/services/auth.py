@@ -91,7 +91,7 @@ class AuthService:
 
     def register_new_user(self, user_data: SignUp) -> Token:
         user = tables.User(
-            email=user_data.email,
+            username=user_data.username,
             first_name=user_data.first_name,
             last_name=user_data.last_name,
             birthday=user_data.birthday,
@@ -104,7 +104,7 @@ class AuthService:
 
     def authenticate_user(
         self,
-        email: str,
+        username: str,
         password: str,
     ) -> Token:
         exception = HTTPException(
@@ -116,7 +116,7 @@ class AuthService:
         user = (
             self.session
             .query(tables.User)
-            .filter(tables.User.email == email)
+            .filter(tables.User.username == username)
             .first()
         )
 

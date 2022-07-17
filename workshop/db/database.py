@@ -28,26 +28,26 @@ def get_session() -> SessionLocal:
 
 
 def create_db():
-    Base.metadata.create_all(create_engine('sqlite:///users.db'))
+    Base.metadata.create_all(create_engine('sqlite:///users.sqlite3'))
     return print('db_create')
 
 
 # create_db()
 
 
-def create_table_sql():
-
-    with sqlite3.connect('users.db') as db:
-        cursor = db.cursor()
-        query = f""" CREATE TABLE IF NOT EXISTS users(
-        email TEXT UNIQUE,
-        first_name TEXT,
-        last_name TEXT,
-        birthday TEXT,
-        phone_number TEXT,
-        password_hash TEXT) """
-        cursor.execute(query)
-        db.commit()
-    return print(f'Table users is created')
-
-create_table_sql()
+# def create_table_sql():
+#
+#     with sqlite3.connect('users.sqlite3') as db:
+#         cursor = db.cursor()
+#         query = f""" CREATE TABLE IF NOT EXISTS users(
+#         email TEXT UNIQUE,
+#         first_name TEXT,
+#         last_name TEXT,
+#         birthday TEXT,
+#         phone_number TEXT,
+#         password_hash TEXT) """
+#         cursor.execute(query)
+#         db.commit()
+#     return print(f'Table users is created')
+#
+# create_table_sql()
