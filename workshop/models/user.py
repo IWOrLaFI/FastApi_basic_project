@@ -17,8 +17,8 @@ class UserInfo(BaseModel):
     username: EmailStr
     password_hash: str
 
-    class Config:
-        orm_mode = True
+    # class Config:
+    #     orm_mode = True
 
 
 class SignIn(UserInfo):
