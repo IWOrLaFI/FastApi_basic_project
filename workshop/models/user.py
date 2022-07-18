@@ -13,7 +13,7 @@ class UserInfo(BaseModel):
     first_name: str
     last_name: str
     # birthday: datetime.datetime
-    birthday: str
+    birthday: datetime
     phone_number: str
     username: EmailStr
     password_hash: str
