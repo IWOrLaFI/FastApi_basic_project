@@ -29,7 +29,7 @@ services:
       POSTGRES_HOST: 'postgres'
       PGDATA: /data/postgres
     ports:
-      - '5432:5432'
+      - '5433:5433'
     networks:
       - postgres
     restart: unless-stopped

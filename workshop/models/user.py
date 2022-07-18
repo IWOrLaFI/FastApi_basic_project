@@ -12,8 +12,8 @@ class UserInfo(BaseModel):
     id: Optional[int] = None
     first_name: str
     last_name: str
-    # birthday: datetime.datetime
-    birthday: datetime
+    # birthday: datetime.date
+    birthday: str
     phone_number: str
     username: EmailStr
     password_hash: str

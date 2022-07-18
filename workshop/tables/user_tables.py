@@ -13,10 +13,11 @@ class User(Base):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True, unique=True)
-    first_name = Column(String, unique=True)
-    last_name = Column(String, unique=True)
-    birthday = Column(Date)
-    phone_number = Column(String)
+    first_name = Column(String)
+    last_name = Column(String)
+    birthday = Column(String)
+    # birthday = Column(Date)
+    phone_number = Column(String, unique=True)
     username = Column(String, unique=True) #email
     password_hash = Column(String)
 
@@ -26,7 +27,7 @@ class Result(Base):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'), index=True)
-    date = Column(Date)
+    date = Column(String)
     result = Column(Integer)
     answer_list = Column(String)
     description = Column(String, nullable=True)
