@@ -1,6 +1,6 @@
 # docker-compose.yml
 
-version: '3.3'
+version: '3.1'
 
 services:
   app:
@@ -16,12 +16,12 @@ services:
       - postgres
     networks:
       - postgres
+    restart: unless-stopped
 
   postgres:
     container_name: postgres_container
     image: postgres
     volumes:
-       - ../2. Init Database:/docker-entrypoint-initdb.d
        - postgres:/data/postgres
     environment:
       POSTGRES_USER: 'postgres'

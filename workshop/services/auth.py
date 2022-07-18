@@ -20,12 +20,12 @@ from passlib.hash import bcrypt
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
-from .. import (tables)
+
 from workshop.models.user import (UserInfo, SignUp)
 from workshop.models.auth import (Token)
 from ..db.database import get_session
 from ..settings import settings
-
+from ..tables import user_tables
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/auth/sign-in/')
 
@@ -69,7 +69,7 @@ class AuthService:
         return user
 
     @classmethod
-    def create_token(cls, user: tables.User) -> Token:
+    def create_token(cls, user: user_tables.User) -> Token:
         user_data = UserInfo.from_orm(user)
         now = datetime.utcnow()
         payload = {
@@ -90,7 +90,9 @@ class AuthService:
         self.session = session
 
     def register_new_user(self, user_data: SignUp) -> Token:
-        user = tables.User(
+        print(user_data)
+        print(type(user_data.birthday))
+        user = user_tables.User(
             username=user_data.username,
             first_name=user_data.first_name,
             last_name=user_data.last_name,
@@ -115,8 +117,8 @@ class AuthService:
 
         user = (
             self.session
-            .query(tables.User)
-            .filter(tables.User.username == username)
+            .query(user_tables.User)
+            .filter(user_tables.User.username == username)
             .first()
         )
 

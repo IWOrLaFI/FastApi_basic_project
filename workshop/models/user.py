@@ -12,13 +12,14 @@ class UserInfo(BaseModel):
     id: Optional[int] = None
     first_name: str
     last_name: str
-    birthday: datetime.datetime
+    # birthday: datetime.datetime
+    birthday: str
     phone_number: str
     username: EmailStr
     password_hash: str
 
-    # class Config:
-    #     orm_mode = True
+    class Config:
+        orm_mode = True
 
 
 class SignIn(UserInfo):

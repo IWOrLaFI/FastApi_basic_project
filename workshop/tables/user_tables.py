@@ -6,9 +6,7 @@ from sqlalchemy import (
     String,
     )
 
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
+from ..db.database import Base
 
 
 class User(Base):
@@ -17,7 +15,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, unique=True)
     first_name = Column(String, unique=True)
     last_name = Column(String, unique=True)
-    birthday = Column(Date)
+    birthday = Column(String)
     phone_number = Column(String)
     username = Column(String, unique=True) #email
     password_hash = Column(String)
