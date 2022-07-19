@@ -1,19 +1,22 @@
 # docker-compose.yml
 
-version: '3.3'
+version: '3.1'
 
 services:
   app:
     build: .
+    container_name:  fastapi
+    external_links:
+      -  postgres_container:postgres_container
     volumes:
       - .:/workshop
     ports:
       - 8000:8000
-    
     depends_on:
       - postgres
     networks:
       - postgres
+    restart: unless-stopped
 
   postgres:
     container_name: postgres_container
@@ -26,7 +29,7 @@ services:
       POSTGRES_HOST: 'postgres'
       PGDATA: /data/postgres
     ports:
-      - '5432:5432'
+      - '5433:5433'
     networks:
       - postgres
     restart: unless-stopped
