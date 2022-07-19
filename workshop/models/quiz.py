@@ -1,11 +1,6 @@
 import datetime
 from typing import Optional
-from pydantic import (
-    BaseModel,
-    EmailStr,
-    validator,
-    constr
-    )
+from pydantic import BaseModel
 
 
 class QuizResult(BaseModel):
@@ -27,7 +22,8 @@ class Quiz(BaseModel):
     question = str
     answer = str
 
-class QuizAnswer(Base):
+
+class QuizAnswer(BaseModel):
     __tablename__ = 'QuizAnswer'
 
     id_question = int
