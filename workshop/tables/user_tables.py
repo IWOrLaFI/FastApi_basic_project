@@ -16,7 +16,6 @@ class User(Base):
     first_name = Column(String)
     last_name = Column(String)
     birthday = Column(String)
-    # birthday = Column(Date)
     phone_number = Column(String, unique=True)
     username = Column(String, unique=True) #email
     password_hash = Column(String)
