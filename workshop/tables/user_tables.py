@@ -1,10 +1,8 @@
 from sqlalchemy import (
     Column,
-    Date,
-    ForeignKey,
     Integer,
     String,
-    )
+)
 
 from ..db.database import Base
 
@@ -17,6 +15,5 @@ class User(Base):
     last_name = Column(String)
     birthday = Column(String)
     phone_number = Column(String, unique=True)
-    username = Column(String, unique=True) #email
+    username = Column(String, unique=True)  # email
     password_hash = Column(String)
-

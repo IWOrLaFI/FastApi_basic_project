@@ -2,6 +2,7 @@ from fastapi import FastAPI
 
 from .routes.auth import router as auth_router
 from .routes.test_routes import router as test_router
+from .routes.quiz import router as quiz_router
 
 from config import (
     PROJECT_NAME,
@@ -30,6 +31,7 @@ app = get_application()
 
 app.include_router(test_router)
 app.include_router(auth_router)
+app.include_router(quiz_router)
 
 db = get_db()
 
