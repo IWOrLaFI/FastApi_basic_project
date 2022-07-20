@@ -3,7 +3,8 @@ from sqlalchemy import create_engine, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:changeme@postgres:5432/'
+# SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:changeme@postgres:5432/'
+SQLALCHEMY_DATABASE_URL = 'postgresql://worlaf:qwerty@postgres:5432/fast'
 metadata = MetaData()
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False,
