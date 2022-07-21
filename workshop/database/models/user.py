@@ -3,8 +3,10 @@ from pydantic import (
     BaseModel,
     EmailStr,
     validator,
-    constr
+    constr,
+    datetime_parse
     )
+
 
 
 class UserInfo(BaseModel):
