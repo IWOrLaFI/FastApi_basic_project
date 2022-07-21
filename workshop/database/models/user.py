@@ -8,12 +8,12 @@ from pydantic import (
 
 
 class UserInfo(BaseModel):
-    id: Optional[int] = None
+    id: int = None
+    username: EmailStr
     first_name: str
     last_name: str
     birthday: str
     phone_number: str
-    username: EmailStr
     password_hash: str
 
     class Config:

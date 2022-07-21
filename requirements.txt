@@ -6,10 +6,17 @@ fastapi==0.78.0
 FastAPI-SQLAlchemy==0.2.1
 greenlet==1.1.2
 h11==0.13.0
+jose==1.0.0
+passlib
+python-jose[cryptography]
+python-jose[pycryptodome]
+python-jose
+python-multipart
 idna==3.3
 ormar==0.11.2
 psycopg2-binary==2.8.6
 pydantic==1.9.1
+pydantic[email]
 python-dotenv==0.20.0
 sniffio==1.2.0
 SQLAlchemy==1.4.38

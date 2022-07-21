@@ -1,5 +1,3 @@
-
-
 from datetime import (
     datetime,
     timedelta,
@@ -15,17 +13,18 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import (
     JWTError,
     jwt,
-)
+    )
 from passlib.hash import bcrypt
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
 
-from workshop.models.user import (UserInfo, SignUp)
-from workshop.models.auth import (Token)
-from ..db.database import get_session
+from workshop.database.models.user import (UserInfo, SignUp)
+from workshop.database.models.auth import (Token)
+from ..database.session import get_session
 from ..settings import settings
-from ..tables import user_tables
+# from ..database.models import user_tables
+from ..database.models.user_tables import User
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/auth/sign-in/')
 
@@ -69,7 +68,7 @@ class AuthService:
         return user
 
     @classmethod
-    def create_token(cls, user: user_tables.User) -> Token:
+    def create_token(cls, user: User) -> Token:
         user_data = UserInfo.from_orm(user)
         now = datetime.utcnow()
         payload = {
@@ -92,7 +91,8 @@ class AuthService:
     def register_new_user(self, user_data: SignUp) -> Token:
         print(user_data)
         print(type(user_data.birthday))
-        user = user_tables.User(
+        user = User(
+            id=user_data.id,
             username=user_data.username,
             first_name=user_data.first_name,
             last_name=user_data.last_name,
@@ -117,8 +117,8 @@ class AuthService:
 
         user = (
             self.session
-            .query(user_tables.User)
-            .filter(user_tables.User.username == username)
+            .query(User)
+            .filter(User.username == username)
             .first()
         )
 

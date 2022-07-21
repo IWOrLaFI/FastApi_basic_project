@@ -15,3 +15,11 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+def get_session() -> SessionLocal:
+    session = SessionLocal()
+    try:
+        yield session
+    finally:
+        session.close()
