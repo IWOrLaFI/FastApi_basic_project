@@ -2,7 +2,7 @@ from sqlalchemy import (
     Column,
     Integer,
     String,
-    Date
+    Date,
 )
 
 from workshop.database.db import Base
@@ -18,3 +18,5 @@ class User(Base):
     birthday = Column(Date)
     phone_number = Column(String, unique=True)
     password_hash = Column(String)
+
+

@@ -14,7 +14,7 @@ class QuizResult(Base):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'), index=True)
-    date = Column(String)
+    date = Column(Date)
     result = Column(Integer)
     answer_list = Column(String)
     description = Column(String, nullable=True)
