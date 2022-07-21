@@ -19,17 +19,17 @@ services:
     user: root
     env_file:
       - database.env
-    volumes:
-      - /data/diplom/postgis:/var/lib/postgis/data
+#    volumes:
+#      - /data/diplom/postgis:/var/lib/postgis/data
     ports:
       - 5432:5432
     networks:
       - postgres
 
-volumes:
-  postgis:
-    driver: local
-  redis_data:
+#volumes:
+#  postgis:
+#    driver: local
+#  redis_data:
 
 networks:
   postgres:
