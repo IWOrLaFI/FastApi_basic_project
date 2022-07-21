@@ -21,9 +21,10 @@ from sqlalchemy.orm import Session
 
 from workshop.database.models.user import (UserInfo, SignUp)
 from workshop.database.models.auth import (Token)
+
 from ..database.session import get_session
 from ..settings import settings
-# from ..database.models import user_tables
+
 from ..database.models.user_tables import User
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/auth/sign-in/')

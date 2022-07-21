@@ -8,7 +8,7 @@ from pydantic import (
 
 
 class UserInfo(BaseModel):
-    id: int = None
+    id: int
     username: EmailStr
     first_name: str
     last_name: str
