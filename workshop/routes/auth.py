@@ -8,7 +8,7 @@ from ..services.auth import (
     get_current_user,
 )
 
-from ..models.auth import (
+from ..database.models.auth import (
     UserCreate,
     BaseUser,
     User,
