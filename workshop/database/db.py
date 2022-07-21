@@ -3,7 +3,6 @@ import typing
 
 class_registry: typing.Dict = {}
 
-
 @as_declarative(class_registry=class_registry)
 class Base:
     id: typing.Any

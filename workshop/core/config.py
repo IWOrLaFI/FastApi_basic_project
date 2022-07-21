@@ -7,7 +7,7 @@ from databases import DatabaseURL
 
 load_dotenv()
 
-config = Config(".env")
+config = Config("database.env")
 
 PROJECT_NAME = "Bogdans project"
 VERSION = "1.0.0"
