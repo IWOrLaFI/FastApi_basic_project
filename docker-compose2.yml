@@ -1,4 +1,7 @@
-version: '3.6'
+# docker-compose.yml
+
+version: '3.3'
+
 services:
   app:
     build: .
@@ -15,22 +18,25 @@ services:
 
   postgres:
     image: postgis/postgis:latest
-    restart: always
+    volumes:
+       - postgres:/data/postgres
     user: root
     env_file:
       - database.env
-    volumes:
-      - /data/diplom/postgis:/var/lib/postgis/data
+    environment:
+      PGDATA: /data/postgres
     ports:
       - 5432:5432
     networks:
       - postgres
-
-volumes:
-  postgis:
-    driver: local
-  redis_data:
+    restart: unless-stopped
+    
 
 networks:
   postgres:
     driver: bridge
+
+volumes:
+  postgres:
+  workshop:
+
