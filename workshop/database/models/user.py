@@ -4,7 +4,6 @@ from pydantic import (
     EmailStr,
     validator,
     constr,
-    datetime_parse
     )
 
 

@@ -49,4 +49,5 @@ def sign_in(
     response_model=User,
 )
 def get_user(user: User = Depends(get_current_user)):
+    print(user)
     return user

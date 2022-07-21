@@ -4,19 +4,16 @@ from pydantic import (
     EmailStr,
     validator,
     constr,
-    datetime_parse
     )
 
 
-
-class UserInfo(BaseModel):
+class QuizResult(BaseModel):
     id: Optional[int] = None
-    username: EmailStr
-    first_name: str
-    last_name: str
-    birthday: str
-    phone_number: str
-    password_hash: str
+    user_id: int
+    date: str
+    result: str
+    answer_list: dict
+    description: str
 
     class Config:
         orm_mode = True
