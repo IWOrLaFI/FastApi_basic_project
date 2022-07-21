@@ -6,7 +6,7 @@ from .routes import (
 from workshop.core.config import PROJECT_NAME, VERSION
 from fastapi.middleware.cors import CORSMiddleware
 
-from workshop.core import config, tasks
+from workshop.core import tasks
 from workshop.database.session import engine
 from workshop.database.db import Base
 

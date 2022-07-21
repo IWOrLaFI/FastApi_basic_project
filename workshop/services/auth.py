@@ -21,8 +21,8 @@ from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
 
-from workshop.models.user import (UserInfo, SignUp)
-from workshop.models.auth import (Token)
+from workshop.database.models.user import (UserInfo, SignUp)
+from workshop.database.models.auth import (Token)
 from ..db.database import get_session
 from ..settings import settings
 from ..tables import user_tables
