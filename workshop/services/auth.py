@@ -23,7 +23,7 @@ from sqlalchemy.orm import Session
 
 from workshop.database.models.user import (UserInfo, SignUp)
 from workshop.database.models.auth import (Token)
-from ..db.database import get_session
+from ..database.database import get_session
 from ..settings import settings
 from ..tables import user_tables
 
