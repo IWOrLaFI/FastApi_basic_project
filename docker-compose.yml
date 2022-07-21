@@ -1,17 +1,12 @@
-# docker-compose.yml
-
-version: '3.1'
-
+version: '3.6'
 services:
   app:
     build: .
-    container_name:  fastapi
-    external_links:
-      -  postgres_container:postgres_container
     volumes:
       - .:/workshop
     ports:
       - 8000:8000
+    
     depends_on:
       - postgres
     networks:
@@ -19,26 +14,23 @@ services:
     restart: unless-stopped
 
   postgres:
-    container_name: postgres_container
-    image: postgres
-    volumes:
-       - postgres:/data/postgres
-    environment:
-      POSTGRES_USER: 'postgres'
-      POSTGRES_PASSWORD: 'changeme'
-      POSTGRES_HOST: 'postgres'
-      PGDATA: /data/postgres
+    image: postgis/postgis:latest
+    restart: always
+    user: root
+    env_file:
+      - database.env
+#    volumes:
+#      - /data/diplom/postgis:/var/lib/postgis/data
     ports:
-      - '5433:5433'
+      - 5432:5432
     networks:
       - postgres
-    restart: unless-stopped
 
+#volumes:
+#  postgis:
+#    driver: local
+#  redis_data:
 
 networks:
   postgres:
     driver: bridge
-
-volumes:
-  postgres:
-  workshop:
