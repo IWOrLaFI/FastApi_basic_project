@@ -90,8 +90,6 @@ class AuthService:
         self.session = session
 
     def register_new_user(self, user_data: SignUp) -> Token:
-        print(user_data)
-        print(type(user_data.birthday))
         user = User(
             id=user_data.id,
             username=user_data.username,
