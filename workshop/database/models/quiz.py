@@ -1,34 +1,38 @@
-from typing import Optional
-from pydantic import (
-    BaseModel,
-    EmailStr,
-    validator,
-    constr,
+from sqlalchemy import (
+    Column,
+    Date,
+    ForeignKey,
+    Integer,
+    String,
     )
+from sqlalchemy.orm import relationship
+
+from workshop.database.db import Base
 
 
-class QuizResult(BaseModel):
-    id: Optional[int] = None
-    user_id: int
-    date: str
-    result: str
-    answer_list: dict
-    description: str
+class QuizResult(Base):
+    __tablename__ = 'QuizResult'
 
-    class Config:
-        orm_mode = True
-
-
-class SignIn(UserInfo):
-    username: EmailStr
-    password: constr(min_length=8)
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'), index=True)
+    date = Column(Date)
+    result = Column(Integer)
+    answer_list = Column(String)
+    description = Column(String, nullable=True)
 
 
-class SignUp(SignIn):
-    password2: str
+class Quiz(Base):
+    __tablename__ = 'Quiz'
 
-    @validator('password')
-    def password_match(cls, v, values, **kwargs):
-        if 'password' in values and v != values['password']:
-            raise ValueError("password don't match")
-        return v
+    id_question = Column(Integer, primary_key=True, unique=True)
+    question = Column(String)
+    answer = Column(String)
+    info = relationship("QuizAnswer", back_populates="text")
+
+
+class QuizAnswer(Base):
+    __tablename__ = 'QuizAnswer'
+
+    id_question = Column(Integer, ForeignKey('quiz.id'), index=True)
+    answer_correct = Column(String)
+    text = relationship("Quiz", back_populates="info")
