@@ -1,8 +1,11 @@
 from fastapi import FastAPI
-from .routes import test_routes
+from .routes import (
+    test_routes,
+    auth
+)
 from workshop.core.config import PROJECT_NAME, VERSION
 from fastapi.middleware.cors import CORSMiddleware
-# from .db.database import get_db, Base, engine
+
 from workshop.core import config, tasks
 from workshop.database.session import engine
 from workshop.database.db import Base
@@ -28,3 +31,4 @@ Base.metadata.create_all(bind=engine)
 app = get_application()
 
 app.include_router(test_routes.router)
+app.include_router(auth.router)
