@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from workshop.routes import test_routes, auth #, quiz
+from workshop.routes import test_routes, auth  #, quiz
 from workshop.core.config import PROJECT_NAME, VERSION
 from fastapi.middleware.cors import CORSMiddleware
 from workshop.core import config, tasks
