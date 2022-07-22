@@ -8,7 +8,6 @@ from sqlalchemy import (
 
 from sqlalchemy.orm import relationship
 
-
 from workshop.database.db import Base
 
 
