@@ -12,18 +12,43 @@ from sqlalchemy.orm import Session
 from workshop.utils.exceptions import TextNotFound
 from workshop.crud.quiz import CRUDQuiz
 
+from ..database.models.auth import (
+    UserCreate,
+    BaseUser,
+    User,
+    Token,
+)
+from ..services.auth import (
+    AuthService,
+    get_current_user,
+)
+
 router = APIRouter(tags=["quiz"])
 
 
-@router.get('/test')
-def test_endpoint():
+@router.get(
+    '/test')
+def test_endpoint(user: User = Depends(get_current_user)):
+    print(user)
     return {'messege': 'test!'}
 
 
 @router.post("/referencing/add_quiz/", response_model=QuizAddQuestion)
-async def add_text(text_example: Quiz, crud: CRUDQuiz = Depends(get_quiz_crud_dependency),
-                   db: Session = Depends(get_db)) -> JSONResponse:
-    result = await crud.create(db=db, obj_in=text_example)
-    # return JSONResponse(status_code=status.HTTP_201_CREATED, content={"id": result.id, "text": result.your_text})
-    return JSONResponse(status_code=status.HTTP_201_CREATED, content={'result': 'quiz added'})
+async def add_quiz(
+        text_example: Quiz,
+        user: User = Depends(get_current_user),
+        crud: CRUDQuiz = Depends(get_quiz_crud_dependency),
+        db: Session = Depends(get_db)) -> JSONResponse:
+    await crud.create(db=db, obj_in=text_example)
+    return JSONResponse(status_code=status.HTTP_201_CREATED, content={'result': 'question added'})
+
+
+@router.post("/referencing/add_quiz/", response_model=QuizAddQuestion)
+async def start_quiz(
+        text_example: Quiz.id,
+        user: User = Depends(get_current_user),
+        crud: CRUDQuiz = Depends(get_quiz_crud_dependency),
+        db: Session = Depends(get_db)) -> JSONResponse:
+    await crud.get(db=db, obj_in=text_example)
+    return JSONResponse(status_code=status.HTTP_201_CREATED, content={'result': 'question added'})
 
