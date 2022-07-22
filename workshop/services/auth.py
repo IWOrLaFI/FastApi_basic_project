@@ -91,7 +91,6 @@ class AuthService:
 
     def register_new_user(self, user_data: SignUp) -> Token:
         user = User(
-            id=user_data.id,
             username=user_data.username,
             first_name=user_data.first_name,
             last_name=user_data.last_name,

@@ -5,7 +5,7 @@ from pydantic.networks import EmailStr
 
 
 class BaseUser(BaseModel):
-    id: int
+
     username: EmailStr
     first_name: str
     last_name: str

@@ -1,35 +1,32 @@
 from typing import Optional
-from pydantic import (
-    BaseModel,
-    EmailStr,
-    validator,
-    constr,
-    )
+from pydantic import BaseModel
 
 
-class UserInfo(BaseModel):
+class QuizResult(BaseModel):
+    __tablename__ = 'QuizResult'
+
     id: Optional[int] = None
-    username: EmailStr
-    first_name: str
-    last_name: str
-    birthday: str
-    phone_number: str
-    password_hash: str
+    user_id: int
+    date: str
+    result: int
+    answer_list: str
+    description: str
 
     class Config:
         orm_mode = True
 
 
-class SignIn(UserInfo):
-    username: EmailStr
-    password: constr(min_length=8)
+class Quiz(BaseModel):
+    __tablename__ = 'Quiz'
+
+    id_question: Optional[int] = None
+    question: str
+    answer: str
 
 
-class SignUp(SignIn):
-    password2: str
+class QuizAnswer(BaseModel):
+    __tablename__ = 'QuizAnswer'
 
-    @validator('password')
-    def password_match(cls, v, values, **kwargs):
-        if 'password' in values and v != values['password']:
-            raise ValueError("password don't match")
-        return v
+    id_question: int
+    answer_correct: str
+

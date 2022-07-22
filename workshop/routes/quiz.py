@@ -2,20 +2,32 @@ from fastapi import (
     APIRouter,
     Depends,
     )
-
 from ..services.auth import (
-    get_current_user
+    AuthService,
+    get_current_user,
 )
 
-
-from ..database.models.quiz_tables import QuizResult
+from ..database.models.auth import (
+    UserCreate,
+    BaseUser,
+    User,
+    Token,
+)
 
 router = APIRouter(prefix="/quiz")
 
 
+# @router.get(
+#     '/quiz/'
+# )
+# def get_quiz(user: QuizResult = Depends(get_current_user)):
+# # def get_quiz():
+#     return print('Ok')
+
 @router.get(
     '/quiz/',
-    response_model=QuizResult,
+    response_model=User,
 )
-def get_quiz(user: QuizResult = Depends(get_current_user)):
-    return print('Ok')
+def get_user(user: User = Depends(get_current_user)):
+    print(user)
+    return user
