@@ -24,4 +24,6 @@ def test_endpoint():
 async def add_text(text_example: Quiz, crud: CRUDQuiz = Depends(get_quiz_crud_dependency),
                    db: Session = Depends(get_db)) -> JSONResponse:
     result = await crud.create(db=db, obj_in=text_example)
-    return JSONResponse(status_code=status.HTTP_201_CREATED, content={"id": result.id, "text": result.your_text})
+    # return JSONResponse(status_code=status.HTTP_201_CREATED, content={"id": result.id, "text": result.your_text})
+    return JSONResponse(status_code=status.HTTP_201_CREATED, content={'result': 'quiz added'})
+
