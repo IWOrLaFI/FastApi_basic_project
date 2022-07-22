@@ -1,53 +1,35 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    String,
-<<<<<<<< HEAD:workshop/tables/user_tables.py
-)
-========
+from typing import Optional
+from pydantic import (
+    BaseModel,
+    EmailStr,
+    validator,
+    constr,
     )
-from sqlalchemy.orm import relationship
->>>>>>>> origin/bug_fix/repir_db:workshop/database/models/quiz.py
-
-from workshop.database.db import Base
 
 
-<<<<<<<< HEAD:workshop/tables/user_tables.py
-class User(Base):
-    __tablename__ = 'users'
+class UserInfo(BaseModel):
+    id: Optional[int] = None
+    username: EmailStr
+    first_name: str
+    last_name: str
+    birthday: str
+    phone_number: str
+    password_hash: str
 
-    id = Column(Integer, primary_key=True, unique=True)
-    first_name = Column(String)
-    last_name = Column(String)
-    birthday = Column(String)
-    phone_number = Column(String, unique=True)
-    username = Column(String, unique=True)  # email
-    password_hash = Column(String)
-========
-class QuizResult(Base):
-    __tablename__ = 'QuizResult'
-
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id'), index=True)
-    date = Column(Date)
-    result = Column(Integer)
-    answer_list = Column(String)
-    description = Column(String, nullable=True)
+    class Config:
+        orm_mode = True
 
 
-class Quiz(Base):
-    __tablename__ = 'Quiz'
-
-    id_question = Column(Integer, primary_key=True, unique=True)
-    question = Column(String)
-    answer = Column(String)
-    info = relationship("QuizAnswer", back_populates="text")
+class SignIn(UserInfo):
+    username: EmailStr
+    password: constr(min_length=8)
 
 
-class QuizAnswer(Base):
-    __tablename__ = 'QuizAnswer'
+class SignUp(SignIn):
+    password2: str
 
-    id_question = Column(Integer, ForeignKey('quiz.id'), index=True)
-    answer_correct = Column(String)
-    text = relationship("Quiz", back_populates="info")
->>>>>>>> origin/bug_fix/repir_db:workshop/database/models/quiz.py
+    @validator('password')
+    def password_match(cls, v, values, **kwargs):
+        if 'password' in values and v != values['password']:
+            raise ValueError("password don't match")
+        return v

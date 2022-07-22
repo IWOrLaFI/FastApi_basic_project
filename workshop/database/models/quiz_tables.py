@@ -1,12 +1,27 @@
 from sqlalchemy import (
     Column,
-    Date,
-    ForeignKey,
     Integer,
     String,
-    )
+    ForeignKey,
+)
 
-from ..db.database import Base
+
+from sqlalchemy.orm import relationship
+
+
+from workshop.database.db import Base
+
+
+class User(Base):
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True, unique=True)
+    first_name = Column(String)
+    last_name = Column(String)
+    birthday = Column(String)
+    phone_number = Column(String, unique=True)
+    username = Column(String, unique=True)  # email
+    password_hash = Column(String)
 
 
 class QuizResult(Base):
@@ -26,6 +41,7 @@ class Quiz(Base):
     id_question = Column(Integer, primary_key=True, unique=True)
     question = Column(String)
     answer = Column(String)
+    info = relationship("QuizAnswer", back_populates="text")
 
 
 class QuizAnswer(Base):
@@ -33,3 +49,5 @@ class QuizAnswer(Base):
 
     id_question = Column(Integer, ForeignKey('quiz.id'), index=True)
     answer_correct = Column(String)
+    text = relationship("Quiz", back_populates="info")
+

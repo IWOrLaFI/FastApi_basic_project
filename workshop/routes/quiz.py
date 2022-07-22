@@ -8,7 +8,7 @@ from ..services.auth import (
 )
 
 
-from ..database.models.quiz import QuizResult
+from ..database.models.quiz_tables import QuizResult
 
 router = APIRouter(prefix="/quiz")
 
