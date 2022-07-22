@@ -11,4 +11,4 @@ RUN pip3 install --no-cache-dir --upgrade -r ./requirements.txt
 
 EXPOSE 8000
 
-CMD ["uvicorn", "workshop.app:app", "--host", "0.0.0.0"]
+CMD ["uvicorn", "workshop.main:app", "--host", "0.0.0.0"]

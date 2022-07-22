@@ -8,7 +8,7 @@ from ..services.auth import (
     get_current_user,
 )
 
-from ..models.auth import (
+from ..database.models.auth import (
     UserCreate,
     BaseUser,
     User,
@@ -49,4 +49,5 @@ def sign_in(
     response_model=User,
 )
 def get_user(user: User = Depends(get_current_user)):
+    print(user)
     return user

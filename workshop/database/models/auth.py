@@ -5,11 +5,12 @@ from pydantic.networks import EmailStr
 
 
 class BaseUser(BaseModel):
+    id: int
+    username: EmailStr
     first_name: str
     last_name: str
     birthday: datetime.datetime
     phone_number: str
-    username: EmailStr
     password_hash: str
 
     class Config:

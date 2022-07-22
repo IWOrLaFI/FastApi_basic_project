@@ -7,14 +7,15 @@ from ..services.auth import (
     get_current_user
 )
 
-from ..models.auth import User
+
+from ..database.models.quiz import QuizResult
 
 router = APIRouter(prefix="/quiz")
 
 
 @router.get(
     '/quiz/',
-    response_model=User,
+    response_model=QuizResult,
 )
-def get_quiz(user: User = Depends(get_current_user)):
-    return user
+def get_quiz(user: QuizResult = Depends(get_current_user)):
+    return print('Ok')
