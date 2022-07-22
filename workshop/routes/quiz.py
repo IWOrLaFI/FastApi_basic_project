@@ -1,33 +1,27 @@
-from fastapi import (
-    APIRouter,
-    Depends,
-    )
-from ..services.auth import (
-    AuthService,
-    get_current_user,
-)
+from fastapi import APIRouter, Depends, status
+from workshop.schemas.quiz_referencing import (
+    Quiz,
+    QuizResult,
+    QuizAddQuestion,
+    QuizEditQuestion,
+    QuizDeleteQuestion,)
+from workshop.dependencies.quiz_dependency import get_quiz_crud_dependency
+from workshop.database.session import get_db
+from fastapi.responses import JSONResponse
+from sqlalchemy.orm import Session
+from workshop.utils.exceptions import TextNotFound
+from workshop.crud.quiz import CRUDQuiz
 
-from ..database.models.auth import (
-    UserCreate,
-    BaseUser,
-    User,
-    Token,
-)
-
-router = APIRouter(prefix="/quiz")
+router = APIRouter(tags=["quiz"])
 
 
-# @router.get(
-#     '/quiz/'
-# )
-# def get_quiz(user: QuizResult = Depends(get_current_user)):
-# # def get_quiz():
-#     return print('Ok')
+@router.get('/test')
+def test_endpoint():
+    return {'messege': 'test!'}
 
-@router.get(
-    '/quiz/',
-    response_model=User,
-)
-def get_user(user: User = Depends(get_current_user)):
-    print(user)
-    return user
+
+@router.post("/referencing/add_quiz/", response_model=QuizAddQuestion)
+async def add_text(text_example: Quiz, crud: CRUDQuiz = Depends(get_quiz_crud_dependency),
+                   db: Session = Depends(get_db)) -> JSONResponse:
+    result = await crud.create(db=db, obj_in=text_example)
+    return JSONResponse(status_code=status.HTTP_201_CREATED, content={"id": result.id, "text": result.your_text})

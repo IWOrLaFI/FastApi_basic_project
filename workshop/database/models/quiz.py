@@ -1,32 +1,30 @@
-from typing import Optional
-from pydantic import BaseModel
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    ForeignKey,
+)
+
+from workshop.database.db import Base
 
 
-class QuizResult(BaseModel):
-    __tablename__ = 'QuizResult'
-
-    id: Optional[int] = None
-    user_id: int
-    date: str
-    result: int
-    answer_list: str
-    description: str
-
-    class Config:
-        orm_mode = True
+class Quiz(Base):
+    id_question = Column(Integer, primary_key=True, unique=True)
+    question = Column(String)
+    answer = Column(String)
+    answer_correct = Column(String)
 
 
-class Quiz(BaseModel):
-    __tablename__ = 'Quiz'
+class QuizResult(Base):
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'), index=True)
+    date = Column(String)
+    result = Column(Integer)
+    answer_list = Column(String)
+    description = Column(String, nullable=True)
 
-    id_question: Optional[int] = None
-    question: str
-    answer: str
 
 
-class QuizAnswer(BaseModel):
-    __tablename__ = 'QuizAnswer'
 
-    id_question: int
-    answer_correct: str
+
 
