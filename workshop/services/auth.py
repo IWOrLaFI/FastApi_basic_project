@@ -19,13 +19,13 @@ from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
 
-from workshop.database.models.user import (UserInfo, SignUp)
-from workshop.database.models.auth import (Token)
+from workshop.schemas.user import (UserInfo, SignUp)
+from workshop.schemas.auth import (Token)
 
 from ..database.session import get_session
 from ..settings import settings
 
-from ..database.models.user_tables import User
+from ..database.models.user import User
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/auth/sign-in/')
 

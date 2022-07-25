@@ -6,5 +6,5 @@ def get_quiz_crud_dependency():
     return CRUDQuiz(Quiz)
 
 
-def get_quiz_info_crud_dependency():
+def get_quiz_start_crud_dependency():
     return CRUDQuiz(QuizResult)

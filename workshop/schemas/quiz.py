@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 
 class Quiz(BaseModel):
-    # id: Optional[int] = None
+    id_question: Optional[int] = None
     question: str
     answer: str
     answer_correct: str

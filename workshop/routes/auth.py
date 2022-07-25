@@ -8,9 +8,8 @@ from ..services.auth import (
     get_current_user,
 )
 
-from ..database.models.auth import (
+from workshop.schemas.auth import (
     UserCreate,
-    BaseUser,
     User,
     Token,
 )

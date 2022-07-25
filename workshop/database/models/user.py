@@ -1,35 +1,22 @@
-from typing import Optional
-from pydantic import (
-    BaseModel,
-    EmailStr,
-    validator,
-    constr,
-    )
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    Date,
+)
+
+from workshop.database.db import Base
 
 
-class UserInfo(BaseModel):
-    id: Optional[int] = None
-    username: EmailStr
-    first_name: str
-    last_name: str
-    birthday: str
-    phone_number: str
-    password_hash: str
+class User(Base):
+    __tablename__ = 'users'
 
-    class Config:
-        orm_mode = True
-
-
-class SignIn(UserInfo):
-    username: EmailStr
-    password: constr(min_length=8)
+    id = Column(Integer, primary_key=True, unique=True)
+    username = Column(String, unique=True)  # email
+    first_name = Column(String)
+    last_name = Column(String)
+    birthday = Column(String)
+    phone_number = Column(String, unique=True)
+    password_hash = Column(String)
 
 
-class SignUp(SignIn):
-    password2: str
-
-    @validator('password')
-    def password_match(cls, v, values, **kwargs):
-        if 'password' in values and v != values['password']:
-            raise ValueError("password don't match")
-        return v
