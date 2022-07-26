@@ -1,12 +1,16 @@
 import sqlalchemy
-from workshop.core import config
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+
+from workshop.core import config
+
 
 engine = sqlalchemy.create_engine(
     config.DB_DEFAULT
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+Base = declarative_base()
 
 # Dependency
 def get_db():

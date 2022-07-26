@@ -1,30 +1,47 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    String,
-    ForeignKey,
-)
-
-from workshop.database.db import Base
-
-
-class Quiz(Base):
-    id_question = Column(Integer, primary_key=True, unique=True)
-    question = Column(String)
-    answer = Column(String)
-    answer_correct = Column(String)
+from sqlalchemy import ForeignKey, Column, Integer, String, Text
+from workshop.database.session import Base
+from sqlalchemy.orm import relationship
 
 
 class QuizResult(Base):
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id'), index=True)
-    date = Column(String)
-    result = Column(Integer)
-    answer_list = Column(String)
-    description = Column(String, nullable=True)
+    __tablename__ = 'quizzes'
+
+    id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+    email = Column(String, ForeignKey('users.email'))
+    title = Column(String, unique=True, nullable=False)
+    description = Column(String, nullable=False)
+    total_questions = Column(Integer, nullable=False)
+    quiz_score = Column(Integer, nullable=True)
 
 
 
+class Quiz(Base):
+    __tablename__ = 'Quiz'
+
+    id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+    question = Column(String, nullable=False)
+    user_id = Column(Integer, ForeignKey('quizzes.id'))
 
 
 
+class Question(Base):
+    __tablename__ = 'questions'
+
+    id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+    question = Column(String, nullable=False)
+    owner_id = Column(Integer, ForeignKey('quizzes.id'))
+
+    owner = relationship('Quiz', back_populates='questions')
+
+    answers = relationship('Answer', back_populates='owner')
+
+
+class Answer(Base):
+    __tablename__ = 'answers'
+
+    id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+    answers = Column(String, nullable=False)
+    correct_answer = Column(String, nullable=False)
+    owner_id = Column(Integer, ForeignKey('questions.id'))
+
+    owner = relationship('Question', back_populates='answers')

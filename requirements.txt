@@ -7,6 +7,8 @@ FastAPI-SQLAlchemy==0.2.1
 greenlet==1.1.2
 h11==0.13.0
 jose==1.0.0
+jwt
+PyJWT==2.4.0
 passlib
 python-jose[cryptography]
 python-jose[pycryptodome]

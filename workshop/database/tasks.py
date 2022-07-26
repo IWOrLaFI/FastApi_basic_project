@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from databases import Database
 from workshop.core.config import DATABASE_URL
 import logging
-from sqlalchemy import create_engine
 
 logger = logging.getLogger(__name__)
 
