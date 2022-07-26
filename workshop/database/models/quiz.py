@@ -8,11 +8,10 @@ class QuizResult(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     email = Column(String, ForeignKey('users.email'))
-    title = Column(String, unique=True, nullable=False)
+    title = Column(String, nullable=False)
     description = Column(String, nullable=False)
     total_questions = Column(Integer, nullable=False)
     quiz_score = Column(Integer, nullable=True)
-
 
 
 class Quiz(Base):
@@ -21,7 +20,6 @@ class Quiz(Base):
     id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     question = Column(String, nullable=False)
     user_id = Column(Integer, ForeignKey('quizzes.id'))
-
 
 
 class Question(Base):
