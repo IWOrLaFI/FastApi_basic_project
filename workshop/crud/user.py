@@ -1,5 +1,5 @@
-from sqlalchemy.orm import Session
-
+# from sqlalchemy.orm import Session
+from workshop.database.session import SessionLocal as Session
 from workshop.database.models.user import User
 from workshop.database.schemas.user import SignUp
 from workshop.services.security import get_hashed_password
@@ -27,6 +27,7 @@ def delete_user_(db: Session, user_email: str):
 
 
 def get_user_by_email(db: Session, email: str):
+    print('Ok')
     user = db.query(User).filter(User.email == email).first()
     return user
 

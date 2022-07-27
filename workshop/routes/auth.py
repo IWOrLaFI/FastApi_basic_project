@@ -21,7 +21,7 @@ async def docs():
 
 
 @router.post("/sign_up", summary="Create new user")
-async def add_user(user: SignUp = Depends(SignUp), db: Session = Depends(get_db)):
+async def sign_up(user: SignUp = Depends(SignUp), db: Session = Depends(get_db)):
     db_user = get_user_by_email(db, email=user.email)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered!")
@@ -43,12 +43,12 @@ async def sign_in(form_data: OAuth2PasswordRequestForm = Depends(), db: Session 
     }
 
 
-@router.get('/me', summary='Get details of currently logged in user', response_model=UserInfo)
+@router.get('/me', summary='Get info of logged user', response_model=UserInfo)
 async def get_me(user: UserInfo = Depends(get_current_user)):
     return user
 
 
-@router.get("/users/", summary='Details of all users', response_model=List[UserInfo])
+@router.get("/users/", summary='Info of all users', response_model=List[UserInfo])
 async def all_users(skip: int = 0, limit: int = 100,
                     current_user: dict = Depends(get_current_user),
                     db: Session = Depends(get_db)):
