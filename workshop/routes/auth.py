@@ -28,8 +28,8 @@ async def add_user(user: SignUp = Depends(SignUp), db: Session = Depends(get_db)
     return create_user(db=db, user=user)
 
 
-@router.post('/login', summary="Create access and refresh tokens for user")
-async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+@router.post('/sign_in')
+async def sign_in(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     # username =  email
     user = get_user_by_email(db, email=form_data.username)
     if not user:

@@ -9,13 +9,13 @@ from pydantic.fields import Field
 
 
 class UserInfo(BaseModel):
-    id: Optional[int] = None
+
     email: EmailStr
     first_name: str
     last_name: str
     birthday: str
     phone_number: str
-    password_hash: str
+
 
     class Config:
         orm_mode = True

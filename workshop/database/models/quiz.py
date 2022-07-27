@@ -29,10 +29,6 @@ class Question(Base):
     question = Column(String, nullable=False)
     owner_id = Column(Integer, ForeignKey('quizzes.id'))
 
-    owner = relationship('Quiz', back_populates='questions')
-
-    answers = relationship('Answer', back_populates='owner')
-
 
 class Answer(Base):
     __tablename__ = 'answers'
@@ -42,4 +38,3 @@ class Answer(Base):
     correct_answer = Column(String, nullable=False)
     owner_id = Column(Integer, ForeignKey('questions.id'))
 
-    owner = relationship('Question', back_populates='answers')
