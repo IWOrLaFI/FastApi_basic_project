@@ -117,7 +117,7 @@ class AuthService:
         user = (
             self.session
             .query(User)
-            .filter(User.username == email)
+            .filter(User.email == email)
             .first()
         )
 
