@@ -1,6 +1,5 @@
 from sqlalchemy import ForeignKey, Column, Integer, String, Text
 from workshop.database.session import Base
-from sqlalchemy.orm import relationship
 
 
 class QuizResult(Base):

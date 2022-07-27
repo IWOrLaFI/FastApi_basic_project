@@ -5,29 +5,25 @@ from pydantic import (
     validator,
     constr,
     )
-from pydantic.fields import Field
 
 
 class UserInfo(BaseModel):
-
+    # id: int
     email: EmailStr
     first_name: str
     last_name: str
     birthday: str
     phone_number: str
 
-
     class Config:
         orm_mode = True
 
 
 class SignIn(UserInfo):
-    email: EmailStr
     password: constr(min_length=8)
 
 
 class SignUp(SignIn):
-    password: str = Field(example='password', min_length=8)
     repeated_password: str
 
     @validator('password')
