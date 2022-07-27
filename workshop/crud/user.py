@@ -6,17 +6,17 @@ from workshop.services.security import get_hashed_password
 
 
 def create_user(db: Session, user: SignUp):
-    db_user = User(email=user.email,
-                   first_name=user.first_name,
-                   last_name=user.last_name,
-                   birthday=user.birthday,
-                   phone_number=user.phone_number,
-                   password=user.password,
-                   password_hash=get_hashed_password(user.password))
-    db.add(db_user)
+    user = User(email=user.email,
+                first_name=user.first_name,
+                last_name=user.last_name,
+                birthday=user.birthday,
+                phone_number=user.phone_number,
+                password=user.password,
+                password_hash=get_hashed_password(user.password))
+    db.add(user)
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(user)
+    return user
 
 
 def delete_user_(db: Session, user_email: str):
@@ -27,40 +27,9 @@ def delete_user_(db: Session, user_email: str):
 
 
 def get_user_by_email(db: Session, email: str):
-    print('Ok')
     user = db.query(User).filter(User.email == email).first()
     return user
 
 
 def get_users(db: Session, skip: int = 0, limit: int = 100):
     return db.query(User).offset(skip).limit(limit).all()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

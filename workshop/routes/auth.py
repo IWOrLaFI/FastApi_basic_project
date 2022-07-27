@@ -62,7 +62,7 @@ async def all_users(skip: int = 0, limit: int = 100,
     return users
 
 
-@router.get('/users/{user_email}', summary='Get user by email.', response_model=UserInfo)
+@router.get('/users/{email}', summary='Get user by email.', response_model=UserInfo)
 async def get_user(email: str, current_user: dict = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user:
         db_user = get_user_by_email(db, email=email)
@@ -76,7 +76,7 @@ async def get_user(email: str, current_user: dict = Depends(get_current_user), d
     return db_user
 
 
-@router.delete("/delete_user/{user_email}", summary='Delete user by email.', response_model=List[UserInfo])
+@router.delete("/delete_user/{email}", summary='Delete user by email.', response_model=List[UserInfo])
 async def delete_user(email: str, current_user: dict = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user:
         db_user = get_user_by_email(db, email=email)

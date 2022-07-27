@@ -1,8 +1,11 @@
 from fastapi import FastAPI
-from workshop.routes import auth, quiz
-from workshop.core.config import PROJECT_NAME, VERSION
 from fastapi.middleware.cors import CORSMiddleware
+
+from workshop.routes import auth, quiz
+
+from workshop.core.config import PROJECT_NAME, VERSION
 from workshop.core import tasks
+
 from workshop.database.session import engine
 from workshop.database.db import Base
 
