@@ -15,7 +15,7 @@ class QuizResult(Base):
 
 class Quiz(Base):
     __tablename__ = 'Quiz'
-
+    title = Column(String, nullable=False)
     id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     question = Column(String, nullable=False)
     user_id = Column(Integer, ForeignKey('quizzes.id'))
